@@ -1,9 +1,8 @@
-# capsule-Task-Manager
-Mean Project on Task Manager application
 
 
 ## About
     This application is about Task Manager where user can add tasks and view tasks, edit any task and even end task. 
+    Find complete code here :https://github.com/divyachigullapalli/capsule-Task-Manager
 
 #### Data Communication 
 * Create taskManager Database
