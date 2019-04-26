@@ -1,0 +1,87 @@
+<div class="shadow-none mb-5 bg-light rounded">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> <a class="nav-link" href="/addtask">Add Task</a> </li>
+            <li class="nav-item active"> <a class="nav-link" href="/viewtask"> View Task</a> </li>
+        </ul>
+    </nav>
+
+    <div class="col-sm-11 mt-5 mb-5">
+        <div class="form-group row">
+            <label for="task" class="col-sm-2 col-form-label">Task:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="task" ng-model="search.Task">
+            </div>
+            <label for="parenttask" class="col-sm-2 col-form-label">Parent Task:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="parenttask" ng-model="search.Parent_Task"
+                    ng-change="filterTasks(search.Parent)">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 row pr-0 mr-2">
+                <label for="priorityfrom" class=" col-sm-3 col-form-label">Priority From:</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="priorityfrom" min="0" max="30"
+                        ng-model="search.PriorityFrm" ng-change="priorityRange(search.PriorityFrm,search.Priorityto)">
+                </div>
+                <label for="priorityto" class="col-sm-3 col-form-label">Priority to:</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="priorityto" ng-model="search.Priorityto"
+                        ng-change="priorityRange(search.PriorityFrm,search.Priorityto)">
+                </div>
+            </div>
+            <div class="col-sm-6 row pr-0">
+                <label for="startDt" class=" col-form-label">Start Date:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="startDt" min="0" max="30" ng-model="search.startDate"
+                        ng-change="filterByDate('start',search.startDate)">
+                </div>
+                <label for="endDt" class=" col-form-label">End Date:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="endDt" ng-model="search.endDate"
+                        ng-change="filterByDate('end',search.endDate)">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hr style="border-top: dotted 1px;" />
+    <div>
+        <ul>
+            <li class="row pb-3 task-item"
+                ng-repeat="task in tasks |filter: endDate  |filter: startDate  | filter:search.Task | filter:search.Parent_Task | filter:greaterThan(search.PriorityFrm) |filter:lessThan(search.Priorityto) ">
+                <div class="col-sm-3">
+                    <label for="task" class=" col-form-label">Task</label>
+                    <input type="text" readonly class="form-control" id="task" value="{{task.Task}}">
+                </div>
+                <div class="col-sm-3">
+                    <label for="task" class=" col-form-label">Parent Task</label>
+                    <input type="text" readonly class="form-control" id="taskParent"
+                        value="{{task.Parent_Task?  task.Parent_Task: 'No Parent'}}">
+                </div>
+                <div class="col-sm-1">
+                    <label for="task" class=" col-form-label">Priority</label>
+                    <input type="text" readonly class="form-control-plaintext" id="taskPriority"
+                        value="{{task.Priority}}">
+                </div>
+                <div class="col-sm-1">
+                    <label for="task" class=" col-form-label">Start</label>
+                    <input type="text" readonly class="form-control-plaintext" id="startDate"
+                        value="{{task.Start_Date}}">
+                </div>
+                <div class="col-sm-1">
+                    <label for="task" class=" col-form-label">End</label>
+                    <input type="text" readonly class="form-control-plaintext" id="endDate" value="{{task.End_Date}}">
+                </div>
+                <div class="mt-5">
+                    <button type="button" class="btn btn-secondary  mr-2" ng-disabled="task.endTask"
+                        ng-click="Edit(task)">Edit </button>
+                    <button type="button" class="btn btn-secondary" ng-click="EndTask(task)">End Task</button>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
